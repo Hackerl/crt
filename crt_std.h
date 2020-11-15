@@ -12,12 +12,41 @@ int strlen(char * str) {
     return n;
 }
 
+int strncmp(const char * s1, const char * s2, size_t l) {
+    for (size_t i=0; i<l && *s1 && *s2; i++)
+        if (s1[i] != s2[i])
+            return -1;
+
+    return 0;
+}
+
+int strcmp(char * s1, char * s2) {
+    int l1 = strlen(s1);
+    int l2 = strlen(s2);
+
+    if (l1 == l2 && !strncmp(s1, s2, l1))
+        return 0;
+
+    return -1;
+}
+
 void memcpy(void *dst, void *src, unsigned int len) {
     unsigned char * d = (unsigned char *) dst;
     unsigned char * s = (unsigned char *) src;
 
     while (len--)
         *d++ = *s++;
+}
+
+int memcmp(void * dst, void * src, unsigned int len) {
+    unsigned char * d = (unsigned char *) dst;
+    unsigned char * s = (unsigned char *) src;
+
+    while (len-- > 0)
+        if (*d++ != *s++)
+            return 1;
+
+    return 0;
 }
 
 void memset(void * dst, unsigned char c, unsigned int len) {
