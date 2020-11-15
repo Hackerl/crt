@@ -2,6 +2,7 @@
 #define CRT_STD_H
 
 #include <limits.h>
+#include <stddef.h>
 
 int strlen(char * str) {
     int n = 0;
