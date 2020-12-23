@@ -11,6 +11,10 @@ void _putchar(char character) {
     _write(1, &character, 1);
 }
 
+#ifdef DISABLE_LOG
+#define LOG(message, args...)
+#else
 #define LOG(message, args...) printf(LINE_PS message NEWLINE, ## args)
+#endif
 
 #endif
