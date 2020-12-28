@@ -4,8 +4,8 @@
 #define CALL_SP(addr) \
     asm volatile("mov %%rsp, %%rdi; call *%%rax;" : : "a"(addr))
 
-#define FIX_SP_JMP(stack, addr) \
-    asm volatile("xchg %%rsp, %0; jmp *%%rax;" : "=r"(stack) : "0"(stack), "a"(addr))
+#define FIX_SP_JMP(stack, addr, arg) \
+    asm volatile("mov %0, %%rsp; mov %1, %%rdi; jmp *%2;" :: "m"(stack), "r"(arg), "a"(addr))
 
 #define INJ_ENTRY(func) \
     asm volatile("nop; nop; call " #func "; int3;")
