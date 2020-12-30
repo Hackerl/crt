@@ -7,34 +7,17 @@
 #include <fcntl.h>
 
 long get_file_size(int fd) {
-    long fs, r;
-    char tmp[0x1000] = {};
+    long fs = _lseek(fd, 0, SEEK_END);
 
-    fs = _lseek(fd, 0, SEEK_END);
-
-    if (fs > 0) {
-        _lseek(fd, 0, SEEK_SET);
-        return fs;
-    }
-
-    fs = 0;
-
-    do
-    {
-        r = _read(fd, tmp, 0x1000);
-
-        if (r < 0)
-            return -1;
-        else
-            fs += r;
-    } while(r > 0);
+    if (fs < 0)
+        return -1;
 
     _lseek(fd, 0, SEEK_SET);
 
     return fs;
 }
 
-int read_file(char *path, char **ptr) {
+long read_file(char *path, char **ptr) {
     int fd = _open(path, O_RDONLY, 0);
 
     if (fd < 0) {
