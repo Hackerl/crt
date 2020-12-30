@@ -3,6 +3,7 @@
 
 #include <syscall.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 
 // ========================================================================== //
 // define syscall asm stub for all archs here
@@ -163,6 +164,7 @@ _syscall1(SYS_close,    _close,     int,        int)
 _syscall1(SYS_brk,      _brk,       long,       unsigned long)
 
 _syscall2(SYS_munmap,       _munmap,    long,   char*,  int)
+_syscall2(SYS_stat,         _stat,      int,    const char *, struct stat *)
 _syscall2(SYS_arch_prctl,   _arch_prctl,int,    int,    unsigned long *)
 
 _syscall3(SYS_read,     _read,      ssize_t,    int, void *, size_t)
